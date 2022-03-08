@@ -7,33 +7,30 @@ class Header extends React.Component {
     super();
     this.state = {
       loading: true,
-      name: '',
+      username: '',
     };
-    this.getUsername = this.getUsername.bind(this);
+    this.getName = this.getName.bind(this);
   }
 
   componentDidMount() {
-    this.getUsername();
+    this.getName();
   }
 
-  async getUsername() {
+  async getName() {
     const user = await getUser();
-    this.setState = ({
+    this.setState({
       loading: false,
-      name: user.name,
+      username: user.name,
     });
   }
 
   render() {
-    const { loading, name } = this.state;
+    const { state } = this;
     return (
       <header data-testid="header-component">
-        { loading ? <Loading /> : (
-          <p data-testid="header-user-name">
-            Bem vindo,
-            { name }
-          </p>
-        )}
+        { state.loading
+          ? <Loading />
+          : <p data-testid="header-user-name">{state.username}</p> }
       </header>
     );
   }
